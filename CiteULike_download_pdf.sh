@@ -5,7 +5,7 @@
 # Last revised 17/08/2018
 
 echo
-echo "  Download your pdf documents from your CiteULike account"
+echo "  Download all pdf documents from your CiteULike account"
 echo
 echo "  Export your CiteULike library as a BibTeX file"
 echo "  Make sure you ticked the box \"Yes, export attachment names\""
