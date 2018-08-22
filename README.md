@@ -11,7 +11,7 @@ You can run either the bash or python3 script to download your documents.
 
 The script asks for your CiteULike username and password to initiate an http session.
 
-All pdf documents are stored in the folder "USERNAME_pdf". Already existing documents in the output folder are skipped.
+Pdf documents will be downloaded into the folder "USERNAME_pdf". Already existing documents in the output folder are skipped.
 
 
-Your BibTex file and folder with pdf documents are now ready to be imported imported in Mendeley (desktop).
+Your BibTex file and folder with pdf documents are now ready to be imported in, for example, Mendeley (desktop).

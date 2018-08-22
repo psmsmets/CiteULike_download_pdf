@@ -67,7 +67,7 @@ fi
 # get the filenames, urls and hashes from the bibliography
 list="/tmp/${username}.list"
 echo -n "* Extract pdf filelist from BibTex $bib... "
-cat $bib | grep "citeulike-attachment-1" | sed -e 's/\(^.*= {\)\(.*\)\(},.*$\)/\2/' | sed -e 's/;//g' | awk '{printf "http://www.citeulike.org%s?hash=%s %s\n", $2,$3,$1;}' > $list
+cat $bib | grep "citeulike-attachment" | sed -e 's/\(^.*= {\)\(.*\)\(},.*$\)/\2/' | sed -e 's/;//g' | awk '{printf "http://www.citeulike.org%s?hash=%s %s\n", $2,$3,$1;}' > $list
 echo "done"
 
 # grap all pdf
