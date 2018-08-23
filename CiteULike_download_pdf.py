@@ -21,26 +21,30 @@ pswd = getpass.getpass('  ...password: ')
 baseurl = 'http://www.citeulike.org'
 
 #####
-print("Log in to CiteULike ")
+print("Log in to CiteULike... ", end='')
 #####
 session = requests.session()
 r = session.post(baseurl+'/login.do', data = {'username':user,'password':pswd})
 r.raise_for_status()
-if r.url == baseurl:
-    print('succesfully logged in')
-elif "status=login-failed" in r.url:
+if "status=login-failed" in r.url:
+    print('failed')
     raise Exception('Wrong password')
+else:
+    print('success')
     
 #####
-bib = input("Define BibTex file (default = " + user + ".bib) : ") or user+".bib"
-print("Scan BibTex file", bib)
+bib = input("Specify BibTex file (default = " + user + ".bib) : ") or user+".bib"
+print("Scan BibTex file %s...", % (bib) )
 ####
 if not os.path.exists(bib):
+    print('failed')
     raise Exception('Error: CiteULike BibTex library not found!')
+else:
+    print('success')
 
 #####
 dest = os.path.join( os.path.dirname(bib), user + "_pdf")
-print("Generate output folder for pdf documents : ", dest)
+print("Generate output folder for pdf documents : %s" % (dest) )
 #####
 try:
     os.makedirs(dest)
@@ -59,17 +63,22 @@ with open(bib,"r") as fi:
             pdflist.append(ln.split('{')[1].split('}')[0].split('; '))
 
 #####
-print("Download your CiteULike pdf documents")
+print("Download %d pdf documents from your CiteULike account" % (len(pdflist)) )
 #####
 bar = progressbar.ProgressBar(max_value=len(pdflist)-1)
 i = -1
 for pdf in pdflist:
     i+=1; bar.update(i)
     f = os.path.join(dest,pdf[0])
-    u = baseurl+pdf[1]+"?hash="+pdf[2]
-    r = session.get(u)
-    with open(f, 'wb') as f:  
-        f.write(r.content)
+    if not os.path.exists(f):
+        u = baseurl+pdf[1]+"?hash="+pdf[2]
+        r = session.get(u)
+        with open(f, 'wb') as f:  
+            f.write(r.content)
+
+#####
+print("Download complete")
+#####
 
 # close session
 session.close;
