@@ -1,0 +1,4 @@
+###> ignore specific filetypes ###
+*.swp
+*.DS_Store
+###< ignore specific filetypes ###
