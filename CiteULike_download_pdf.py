@@ -2,7 +2,7 @@
 # Script to download your pdf documents from your CiteULike account
 # Copyright (C) 2018 Pieter Smets - All Rights Reserved
 # Permission to copy and modify is granted under the MIT license
-# Last revised 20/08/2018
+# Last revised 26/03/2019
 
 import requests, getpass
 import sys, os, errno
@@ -34,7 +34,7 @@ else:
     
 #####
 bib = input("Specify BibTex file (default = " + user + ".bib) : ") or user+".bib"
-print("Scan BibTex file %s...", % (bib) )
+print("Scan BibTex file {}...".format(bib) )
 ####
 if not os.path.exists(bib):
     print('failed')
@@ -44,7 +44,7 @@ else:
 
 #####
 dest = os.path.join( os.path.dirname(bib), user + "_pdf")
-print("Generate output folder for pdf documents : %s" % (dest) )
+print("Generate output folder for pdf documents : {}".format(dest) )
 #####
 try:
     os.makedirs(dest)
@@ -63,7 +63,7 @@ with open(bib,"r") as fi:
             pdflist.append(ln.split('{')[1].split('}')[0].split('; '))
 
 #####
-print("Download %d pdf documents from your CiteULike account" % (len(pdflist)) )
+print("Download {} pdf documents from your CiteULike account".format(len(pdflist)) )
 #####
 bar = progressbar.ProgressBar(max_value=len(pdflist)-1)
 i = -1

@@ -70,8 +70,15 @@ echo -n "* Extract pdf filelist from BibTex $bib... "
 cat $bib | grep "citeulike-attachment" | sed -e 's/\(^.*= {\)\(.*\)\(},.*$\)/\2/' | sed -e 's/;//g' | awk '{printf "http://www.citeulike.org%s?hash=%s %s\n", $2,$3,$1;}' > $list
 echo "done"
 
+cnt=$(cat $list | wc -l | xargs)
+if [[ $cnt < 1 ]]; then
+   echo "*********"
+   echo " WARNING: No attachment names found! Did you tick the box \"Yes, export attachment names\"?"
+   echo "*********"
+fi
+
 # grap all pdf
-echo -n "* Download all pdf documents... "
+echo -n "* Download all $cnt pdf documents... "
 while read -r url name; do
    if [ ! -f $fold/$name ]; then
       wget --load-cookies $cookies -q -O $fold/$name $url
